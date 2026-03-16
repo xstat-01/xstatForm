@@ -405,11 +405,11 @@ async function submitForm() {
   };
 
   try {
-    const res = await fetch(FORMSPREE_URL, {
+    const res = await fetch('https://api.web3forms.com/submit', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-      body: JSON.stringify(payload)
-    });
+      body: JSON.stringify({ access_key: WEB3FORMS_KEY, ...payload })
+    }); 
     sending.style.display = 'none';
     if (res.ok) {
       document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
