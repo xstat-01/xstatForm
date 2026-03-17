@@ -138,6 +138,10 @@
         <input id="email" type="email" placeholder="exemple@gmail.com"/>
       </div>
       <div class="field">
+        <label>N° CNI <span class="req">*</span></label>
+        <input id="cni" name="cni" placeholder="Numéro carte nationale d'identité"/>
+      </div>
+      <div class="field">
         <label>Région</label>
         <input id="region" value="DIOURBEL" readonly style="background:#f5f5f0;color:#666"/>
       </div>
@@ -167,9 +171,17 @@
         <label>Date de prise de service</label>
         <input id="date_service" type="date" value="2025-08-11"/>
       </div>
-      <div class="field full">
-        <label>Superviseur</label>
-        <input id="superviseur" placeholder="Nom du superviseur" value="Abdou Sakor Diouf"/>
+      <div class="field">
+        <label>Superviseur <span class="req">*</span></label>
+        <select id="superviseur">
+          <option value="">-- Sélectionner --</option>
+          <option>Abdou Sackour Diouf </option>
+          <option>Amadou Sall</option>
+          <option>Amadou Sene</option>
+          <option>Ablaye Diene</option>
+          <option>Issa KEBE</option>
+          <option>Autre</option>
+        </select>
       </div>
     </div>
     <div class="nav-btns">
@@ -181,8 +193,8 @@
        ÉTAPE 2 — TABLEAU 1 : ACTIVITÉS MENÉES
   ══════════════════════════════════════════ -->
   <div class="section" id="step2">
-    <div class="section-title">Tableau 1 — Synthèse des activités menées par les JVA</div>
-    <p style="font-size:13px;color:#666;margin-bottom:14px">Pour chaque thématique, décrivez les activités réalisées durant la campagne.</p>
+    <div class="section-title">SYNTHESE DES ACTIVITES MENEES PAR LES JVA</div>
+    <p style="font-size:13px;color:#666;margin-bottom:14px">Pour chaque thématique, décrivez les activités réalisées durant la campagne 2025-2026.</p>
 
     <table class="activite-table">
       <thead>
@@ -252,9 +264,9 @@
        ÉTAPE 4 — TABLEAU 2 : PAIEMENTS
   ══════════════════════════════════════════ -->
   <div class="section" id="step4">
-    <div class="section-title">Tableau 2 — Recensement des paiements des JVA</div>
+    <div class="section-title">INFORMATIONS DE PAIEMENT DES SALIRES ET INDEMNITES DE TRANSPORT</div>
     <div class="paiement-info">
-      Ces informations alimentent directement le tableau de recensement des paiements du rapport officiel. Renseignez le numéro utilisé pour recevoir vos paiements Wave ou Orange Money.
+      Renseignez le numéro utilisé pour recevoir vos paiements, les opérateurs mobiles utilisés Wave ou Orange Money ainsi que le nombre de versements perçus.
     </div>
     <div class="grid2">
       <div class="field">
