@@ -7,131 +7,147 @@
 <style>
   *{box-sizing:border-box;margin:0;padding:0}
   body{font-family:'Segoe UI',Arial,sans-serif;background:#f5f5f0;color:#1a1a1a;font-size:15px}
-  .page{max-width:760px;margin:0 auto;padding:24px 16px 60px}
+  .page{max-width:780px;margin:0 auto;padding:24px 16px 60px}
 
+  /* Header */
   .header{background:#fff;border-radius:12px;border:1px solid #e0e0d8;padding:24px;margin-bottom:20px;text-align:center}
-  .logo-placeholder{width:80px;height:52px;background:#375623;border-radius:8px;display:inline-flex;align-items:center;justify-content:center;color:#fff;font-weight:700;font-size:13px;letter-spacing:.05em;margin-bottom:12px}
+  .logo{width:72px;height:52px;background:#375623;border-radius:8px;display:inline-flex;align-items:center;justify-content:center;color:#fff;font-weight:700;font-size:12px;letter-spacing:.04em;margin-bottom:12px}
+  .ministry{font-size:12px;font-weight:600;color:#555;margin-bottom:6px;line-height:1.5}
   .badge{display:inline-block;background:#e8f5e1;color:#375623;font-size:12px;font-weight:600;padding:3px 12px;border-radius:20px;margin-bottom:10px}
-  .header h1{font-size:20px;font-weight:600;color:#1a1a1a;margin-bottom:4px}
+  .header h1{font-size:19px;font-weight:600;color:#1a1a1a;margin-bottom:4px}
   .header p{font-size:13px;color:#666}
 
+  /* Progress */
   .progress-bar{height:4px;background:#e0e0d8;border-radius:2px;margin-bottom:20px;overflow:hidden}
   .progress-fill{height:100%;background:#375623;border-radius:2px;transition:width .3s}
 
-  .steps{display:flex;gap:8px;margin-bottom:20px;flex-wrap:wrap}
-  .step-btn{flex:1;min-width:90px;padding:8px 4px;font-size:12px;font-weight:500;border:1px solid #ddd;border-radius:8px;background:#fff;color:#999;cursor:pointer;text-align:center;transition:.2s}
+  /* Steps */
+  .steps{display:flex;gap:6px;margin-bottom:20px;flex-wrap:wrap}
+  .step-btn{flex:1;min-width:80px;padding:8px 4px;font-size:11px;font-weight:600;border:1px solid #ddd;border-radius:8px;background:#fff;color:#999;cursor:pointer;text-align:center;transition:.2s}
   .step-btn.active{background:#375623;color:#fff;border-color:#375623}
   .step-btn.done{background:#e8f5e1;color:#375623;border-color:#c3deb5}
 
+  /* Sections */
   .section{background:#fff;border-radius:12px;border:1px solid #e0e0d8;padding:20px;margin-bottom:16px;display:none}
   .section.active{display:block}
-  .section-title{font-size:13px;font-weight:600;color:#375623;text-transform:uppercase;letter-spacing:.06em;margin-bottom:16px;padding-bottom:10px;border-bottom:1px solid #f0f0e8}
+  .section-title{font-size:12px;font-weight:700;color:#375623;text-transform:uppercase;letter-spacing:.07em;margin-bottom:16px;padding-bottom:10px;border-bottom:1px solid #f0f0e8}
+  .section-label{font-size:13px;font-weight:600;color:#333;margin:16px 0 10px;padding-left:10px;border-left:3px solid #375623}
 
+  /* Fields */
   .grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
-  @media(max-width:540px){.grid2{grid-template-columns:1fr}}
+  .grid3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px}
+  @media(max-width:540px){.grid2,.grid3{grid-template-columns:1fr}}
   .field{display:flex;flex-direction:column;gap:5px}
   .field.full{grid-column:1/-1}
   .field label{font-size:12px;font-weight:600;color:#444}
   .field label .req{color:#e24b4a}
   .field input,.field select,.field textarea{width:100%;padding:9px 12px;font-size:14px;border:1px solid #ddd;border-radius:8px;background:#fff;color:#1a1a1a;transition:.2s;font-family:inherit}
   .field input:focus,.field select:focus,.field textarea:focus{outline:none;border-color:#375623;box-shadow:0 0 0 3px rgba(55,86,35,.1)}
-  .field textarea{resize:vertical;min-height:80px;line-height:1.5}
+  .field textarea{resize:vertical;min-height:90px;line-height:1.6}
   .field .hint{font-size:11px;color:#999;margin-top:2px}
 
-  .village-header{display:grid;grid-template-columns:2fr 1.8fr 1.2fr 70px 70px 36px;gap:8px;margin-bottom:6px}
-  .village-header span{font-size:11px;font-weight:600;color:#888}
-  .village-row{display:grid;grid-template-columns:2fr 1.8fr 1.2fr 70px 70px 36px;gap:8px;align-items:center;margin-bottom:8px}
-  .village-row input,.village-row select{padding:7px 9px;font-size:13px;border:1px solid #ddd;border-radius:7px;background:#fff;color:#1a1a1a;width:100%}
-  .village-row input:focus,.village-row select:focus{outline:none;border-color:#375623}
-  @media(max-width:600px){
-    .village-header,.village-row{grid-template-columns:1fr 1fr}
-    .village-header span:nth-child(n+3){display:none}
-    .village-row>*:nth-child(n+3){display:none}
-    .village-row .del-btn{display:flex}
-  }
-  .del-btn{width:32px;height:32px;border:1px solid #f5c4c4;border-radius:7px;background:#fff;color:#e24b4a;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;font-weight:600}
+  /* Tableau activités */
+  .activite-table{width:100%;border-collapse:collapse;margin-top:8px;font-size:13px}
+  .activite-table th{background:#375623;color:#fff;padding:9px 12px;text-align:left;font-size:12px;font-weight:600}
+  .activite-table th:first-child{width:42%}
+  .activite-table td{padding:8px 10px;border:1px solid #e0e0d8;vertical-align:top}
+  .activite-table tr:nth-child(even) td{background:#f8fdf5}
+  .activite-table td:first-child{font-weight:500;color:#333;font-size:12px;background:#f5f5f0}
+  .activite-table textarea{width:100%;border:none;background:transparent;font-size:13px;font-family:inherit;resize:vertical;min-height:60px;outline:none;line-height:1.5;color:#1a1a1a;padding:2px}
+
+  /* Tableau paiement */
+  .paiement-info{background:#fffbea;border:1px solid #f5d878;border-radius:8px;padding:12px 14px;margin-bottom:16px;font-size:13px;color:#7a5c00}
+  .montant-box{margin-top:12px;background:#e8f5e1;border-radius:8px;padding:10px 14px;font-size:14px;color:#375623;display:none;font-weight:500}
+
+  /* Difficultés */
+  .diff-row{display:flex;gap:8px;align-items:flex-start;margin-bottom:8px}
+  .diff-row input{flex:1;padding:8px 12px;font-size:13px;border:1px solid #ddd;border-radius:8px;font-family:inherit}
+  .diff-row input:focus{outline:none;border-color:#375623}
+  .del-btn{width:32px;height:36px;border:1px solid #f5c4c4;border-radius:8px;background:#fff;color:#e24b4a;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
   .del-btn:hover{background:#fcebeb}
-  .add-btn{display:inline-flex;align-items:center;gap:6px;font-size:13px;padding:7px 14px;border:1px dashed #b0c8a0;border-radius:8px;background:#f8fdf5;color:#375623;cursor:pointer;margin-top:8px;font-weight:500}
+  .add-btn{display:inline-flex;align-items:center;gap:6px;font-size:13px;padding:7px 14px;border:1px dashed #b0c8a0;border-radius:8px;background:#f8fdf5;color:#375623;cursor:pointer;margin-top:6px;font-weight:500}
   .add-btn:hover{background:#e8f5e1}
 
-  .paiement-info{background:#fffbea;border:1px solid #f5d878;border-radius:8px;padding:12px 14px;margin-bottom:16px;font-size:13px;color:#7a5c00}
-  .montant-box{margin-top:14px;background:#e8f5e1;border-radius:8px;padding:10px 14px;font-size:14px;color:#375623;display:none}
-
+  /* Nav */
   .nav-btns{display:flex;gap:10px;margin-top:24px}
   .btn-next{flex:1;padding:12px;font-size:15px;font-weight:600;border:none;border-radius:9px;background:#375623;color:#fff;cursor:pointer}
   .btn-next:hover{background:#2a4119}
-  .btn-next:disabled{background:#aaa;cursor:not-allowed}
   .btn-prev{padding:12px 20px;font-size:14px;border:1px solid #ddd;border-radius:9px;background:#fff;color:#555;cursor:pointer}
   .btn-prev:hover{background:#f5f5f0}
   .btn-submit{flex:1;padding:12px;font-size:15px;font-weight:600;border:none;border-radius:9px;background:#375623;color:#fff;cursor:pointer}
   .btn-submit:hover{background:#2a4119}
-  .btn-submit:disabled{background:#aaa;cursor:not-allowed}
+  .btn-submit:disabled,.btn-next:disabled{background:#aaa;cursor:not-allowed}
 
+  /* Sending / success / error */
   .sending-overlay{display:none;text-align:center;padding:20px;font-size:14px;color:#375623}
   .spinner{display:inline-block;width:24px;height:24px;border:3px solid #c3deb5;border-top-color:#375623;border-radius:50%;animation:spin .7s linear infinite;margin-bottom:8px}
   @keyframes spin{to{transform:rotate(360deg)}}
-
   .success{display:none;background:#fff;border-radius:12px;border:1px solid #c3deb5;padding:32px;text-align:center}
   .success-icon{width:64px;height:64px;background:#e8f5e1;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-size:30px;margin-bottom:16px;color:#375623}
   .success h2{font-size:18px;font-weight:600;color:#375623;margin-bottom:8px}
-  .success p{font-size:14px;color:#555;line-height:1.6;margin-bottom:8px}
+  .success p{font-size:14px;color:#555;line-height:1.6;margin-bottom:6px}
   .btn-new{margin-top:20px;display:inline-block;padding:10px 24px;background:#375623;color:#fff;border-radius:8px;cursor:pointer;font-size:14px;font-weight:600;border:none}
-
   .error-banner{display:none;background:#fcebeb;border:1px solid #f09595;border-radius:8px;padding:12px 14px;margin-top:12px;font-size:13px;color:#a32d2d}
 
-  footer{text-align:center;font-size:12px;color:#aaa;margin-top:32px}
+  footer{text-align:center;font-size:12px;color:#aaa;margin-top:32px;line-height:1.8}
 </style>
 </head>
 <body>
 <div class="page">
 
+  <!-- EN-TÊTE OFFICIEL -->
   <div class="header">
-    <div class="logo-placeholder">ANCAR</div>
+    <div class="logo">ANCAR</div>
+    <div class="ministry">MINISTÈRE DE L'AGRICULTURE, DE LA SOUVERAINETÉ ALIMENTAIRE ET DE L'ÉLEVAGE (MASAE)</div>
     <div class="badge">Campagne Agricole 2025 / 2026</div>
-    <h1>Bilan des Jeunes Volontaires Agricoles</h1>
-    <p>Département de Bambey — Formulaire de collecte de données</p>
+    <h1>Rapport Atelier Bilan des Activités Menées par les JVA</h1>
+    <p>Région : DIOURBEL &nbsp;|&nbsp; Département : BAMBEY</p>
   </div>
 
+  <!-- BARRE DE PROGRESSION -->
   <div class="progress-bar"><div class="progress-fill" id="progress" style="width:25%"></div></div>
 
+  <!-- ÉTAPES -->
   <div class="steps">
     <button class="step-btn active" id="s1" onclick="goTo(1)">1. Identité</button>
-    <button class="step-btn" id="s2" onclick="goTo(2)">2. Paiement</button>
-    <button class="step-btn" id="s3" onclick="goTo(3)">3. Villages</button>
-    <button class="step-btn" id="s4" onclick="goTo(4)">4. Bilan</button>
+    <button class="step-btn" id="s2" onclick="goTo(2)">2. Activités</button>
+    <button class="step-btn" id="s3" onclick="goTo(3)">3. Difficultés</button>
+    <button class="step-btn" id="s4" onclick="goTo(4)">4. Paiement</button>
   </div>
 
-  <!-- STEP 1 -->
+  <!-- ══════════════════════════════════════════
+       ÉTAPE 1 — IDENTITÉ DU VOLONTAIRE
+  ══════════════════════════════════════════ -->
   <div class="section active" id="step1">
-    <div class="section-title">Identité du volontaire</div>
+    <div class="section-title">Informations générales du volontaire</div>
     <div class="grid2">
       <div class="field">
         <label>Prénom(s) <span class="req">*</span></label>
-        <input id="prenom" name="prenom" placeholder="Ex: Elhadji"/>
+        <input id="prenom" placeholder="Ex : Elhadji"/>
       </div>
       <div class="field">
         <label>Nom <span class="req">*</span></label>
-        <input id="nom" name="nom" placeholder="Ex: NIANG"/>
+        <input id="nom" placeholder="Ex : NIANG"/>
       </div>
       <div class="field">
         <label>Téléphone personnel <span class="req">*</span></label>
-        <input id="tel" name="tel" type="tel" placeholder="7X XXX XX XX"/>
+        <input id="tel" type="tel" placeholder="7X XXX XX XX"/>
       </div>
       <div class="field">
         <label>Email</label>
-        <input id="email" name="email" type="email" placeholder="exemple@gmail.com"/>
+        <input id="email" type="email" placeholder="exemple@gmail.com"/>
       </div>
       <div class="field">
-        <label>N° CNI <span class="req">*</span></label>
-        <input id="cni" name="cni" placeholder="Numéro carte nationale d'identité"/>
+        <label>Région</label>
+        <input id="region" value="DIOURBEL" readonly style="background:#f5f5f0;color:#666"/>
       </div>
       <div class="field">
-        <label>Date de prise de service</label>
-        <input id="date_service" name="date_service" type="date" value="2025-08-11"/>
+        <label>Département</label>
+        <input id="departement" value="BAMBEY" readonly style="background:#f5f5f0;color:#666"/>
       </div>
       <div class="field">
         <label>Commune d'affectation <span class="req">*</span></label>
-        <select id="commune" name="commune">
+        <select id="commune">
           <option value="">-- Sélectionner --</option>
           <option>GAWANE</option>
           <option>Keur Samba Kane</option>
@@ -148,8 +164,12 @@
         </select>
       </div>
       <div class="field">
+        <label>Date de prise de service</label>
+        <input id="date_service" type="date" value="2025-08-11"/>
+      </div>
+      <div class="field full">
         <label>Superviseur</label>
-        <input id="superviseur" name="superviseur" placeholder="Nom du superviseur" value="Abdou Sakor Diouf"/>
+        <input id="superviseur" placeholder="Nom du superviseur" value="Abdou Sakor Diouf"/>
       </div>
     </div>
     <div class="nav-btns">
@@ -157,21 +177,98 @@
     </div>
   </div>
 
-  <!-- STEP 2 -->
+  <!-- ══════════════════════════════════════════
+       ÉTAPE 2 — TABLEAU 1 : ACTIVITÉS MENÉES
+  ══════════════════════════════════════════ -->
   <div class="section" id="step2">
-    <div class="section-title">Informations de paiement (Tableau 4)</div>
+    <div class="section-title">Tableau 1 — Synthèse des activités menées par les JVA</div>
+    <p style="font-size:13px;color:#666;margin-bottom:14px">Pour chaque thématique, décrivez les activités réalisées durant la campagne.</p>
+
+    <table class="activite-table">
+      <thead>
+        <tr>
+          <th>Thématique</th>
+          <th>Activités réalisées</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Suivi des cultures<br/>(grandes cultures et horticoles)</td>
+          <td><textarea id="act_suivi" placeholder="Décrivez les activités de suivi des cultures menées..."></textarea></td>
+        </tr>
+        <tr>
+          <td>Appui récolte</td>
+          <td><textarea id="act_recolte" placeholder="Décrivez les activités d'appui à la récolte..."></textarea></td>
+        </tr>
+        <tr>
+          <td>Appui commercialisation des productions</td>
+          <td><textarea id="act_commercialisation" placeholder="Décrivez les activités d'appui à la commercialisation..."></textarea></td>
+        </tr>
+        <tr>
+          <td>Appui production animale</td>
+          <td><textarea id="act_animale" placeholder="Décrivez les activités liées à la production animale..."></textarea></td>
+        </tr>
+        <tr>
+          <td>Appui production halieutique</td>
+          <td><textarea id="act_halieutique" placeholder="Décrivez les activités liées à la production halieutique..."></textarea></td>
+        </tr>
+        <tr>
+          <td>Activités de communication pour les OP et dans les réseaux sociaux</td>
+          <td><textarea id="act_communication" placeholder="Décrivez les activités de communication menées..."></textarea></td>
+        </tr>
+        <tr>
+          <td>Renforcement des capacités des producteurs et des OP sur les bonnes pratiques</td>
+          <td><textarea id="act_renforcement" placeholder="Décrivez les sessions de renforcement de capacités..."></textarea></td>
+        </tr>
+        <tr>
+          <td>Contraintes de mise en œuvre</td>
+          <td><textarea id="act_contraintes" placeholder="Listez les contraintes rencontrées dans la mise en œuvre..."></textarea></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="nav-btns">
+      <button class="btn-prev" onclick="goTo(1)">← Précédent</button>
+      <button class="btn-next" onclick="nextStep(2)">Suivant →</button>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════
+       ÉTAPE 3 — DIFFICULTÉS RENCONTRÉES
+  ══════════════════════════════════════════ -->
+  <div class="section" id="step3">
+    <div class="section-title">Difficultés rencontrées</div>
+    <p style="font-size:13px;color:#666;margin-bottom:14px">Listez les difficultés rencontrées durant la campagne. Ajoutez autant de lignes que nécessaire.</p>
+    <div id="diff-list"></div>
+    <button class="add-btn" onclick="addDiff()">+ Ajouter une difficulté</button>
+
+    <div class="nav-btns">
+      <button class="btn-prev" onclick="goTo(2)">← Précédent</button>
+      <button class="btn-next" onclick="nextStep(3)">Suivant →</button>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════
+       ÉTAPE 4 — TABLEAU 2 : PAIEMENTS
+  ══════════════════════════════════════════ -->
+  <div class="section" id="step4">
+    <div class="section-title">Tableau 2 — Recensement des paiements des JVA</div>
     <div class="paiement-info">
-      Renseignez le numéro utilisé pour recevoir vos paiements Wave ou Orange Money ainsi que le nombre de versements perçus.
+      Ces informations alimentent directement le tableau de recensement des paiements du rapport officiel. Renseignez le numéro utilisé pour recevoir vos paiements Wave ou Orange Money.
     </div>
     <div class="grid2">
       <div class="field">
+        <label>N° CNI <span class="req">*</span></label>
+        <input id="cni" placeholder="Numéro carte nationale d'identité"/>
+      </div>
+      <div class="field">
         <label>Téléphone utilisé pour le paiement <span class="req">*</span></label>
-        <input id="tel_paiement" name="tel_paiement" type="tel" placeholder="7X XXX XX XX"/>
-        <span class="hint">Numéro Wave ou Orange Money</span>
+        <input id="tel_paiement" type="tel" placeholder="7X XXX XX XX"/>
+        <span class="hint">Numéro Wave ou Orange Money enregistré</span>
       </div>
       <div class="field">
         <label>Opérateur <span class="req">*</span></label>
-        <select id="operateur" name="operateur">
+        <select id="operateur">
           <option value="">-- Sélectionner --</option>
           <option>Wave</option>
           <option>Orange Money (OM)</option>
@@ -180,75 +277,19 @@
       </div>
       <div class="field">
         <label>Nombre de paiements de 50 000 FCFA reçus</label>
-        <input id="p50" name="paiements_50000" type="number" min="0" value="0"/>
+        <input id="p50" type="number" min="0" value="0"/>
       </div>
       <div class="field">
         <label>Nombre de paiements de 100 000 FCFA reçus</label>
-        <input id="p100" name="paiements_100000" type="number" min="0" value="0"/>
+        <input id="p100" type="number" min="0" value="0"/>
+      </div>
+      <div class="field" style="align-self:flex-end">
+        <div class="montant-box" id="montant-display" style="display:block;margin:0">
+          Montant total : <strong id="montant-val">0</strong> FCFA
+        </div>
       </div>
     </div>
-    <div class="montant-box" id="montant-display">
-      Montant total perçu : <strong id="montant-val"></strong> FCFA
-    </div>
-    <div class="nav-btns">
-      <button class="btn-prev" onclick="goTo(1)">← Précédent</button>
-      <button class="btn-next" onclick="nextStep(2)">Suivant →</button>
-    </div>
-  </div>
 
-  <!-- STEP 3 -->
-  <div class="section" id="step3">
-    <div class="section-title">Villages visités — Campagne 2025/2026</div>
-    <p style="font-size:13px;color:#666;margin-bottom:14px">Listez les villages visités durant la campagne. Ajoutez une ligne par village.</p>
-    <div class="village-header">
-      <span>Nom du village</span>
-      <span>Activité principale</span>
-      <span>Période</span>
-      <span>Producteurs</span>
-      <span>Séances</span>
-      <span></span>
-    </div>
-    <div id="villages-list"></div>
-    <button class="add-btn" onclick="addVillage()">+ Ajouter un village</button>
-    <div class="nav-btns">
-      <button class="btn-prev" onclick="goTo(2)">← Précédent</button>
-      <button class="btn-next" onclick="nextStep(3)">Suivant →</button>
-    </div>
-  </div>
-
-  <!-- STEP 4 -->
-  <div class="section" id="step4">
-    <div class="section-title">Bilan des activités</div>
-    <div class="grid2">
-      <div class="field">
-        <label>Nombre total de villages couverts</label>
-        <input id="nb_villages" name="nb_villages" type="number" min="0" placeholder="0"/>
-      </div>
-      <div class="field">
-        <label>Nombre total de producteurs accompagnés</label>
-        <input id="nb_producteurs" name="nb_producteurs" type="number" min="0" placeholder="0"/>
-      </div>
-      <div class="field">
-        <label>Nombre de séances de sensibilisation</label>
-        <input id="nb_seances" name="nb_seances" type="number" min="0" placeholder="0"/>
-      </div>
-      <div class="field">
-        <label>Nombre de GIE / coopératives recensés</label>
-        <input id="nb_gie" name="nb_gie" type="number" min="0" placeholder="0"/>
-      </div>
-      <div class="field full">
-        <label>Contraintes principales rencontrées</label>
-        <textarea id="contraintes" name="contraintes" placeholder="Ex: manque de moyens de transport, faible disponibilité des producteurs..."></textarea>
-      </div>
-      <div class="field full">
-        <label>Recommandations</label>
-        <textarea id="recommandations" name="recommandations" placeholder="Ex: augmenter les quotas de semences, mettre à disposition des moyens de déplacement..."></textarea>
-      </div>
-      <div class="field full">
-        <label>Observations complémentaires</label>
-        <textarea id="observations" name="observations" placeholder="Toute information utile sur le déroulement de votre mission..."></textarea>
-      </div>
-    </div>
     <div class="nav-btns">
       <button class="btn-prev" onclick="goTo(3)">← Précédent</button>
       <button class="btn-submit" id="btn-submit" onclick="submitForm()">Envoyer mon rapport ✓</button>
@@ -258,27 +299,28 @@
       <p>Envoi en cours, veuillez patienter...</p>
     </div>
     <div class="error-banner" id="error-banner">
-      Une erreur est survenue lors de l'envoi. Vérifiez votre connexion internet et réessayez.
+      Une erreur est survenue. Vérifiez votre connexion internet et réessayez.
     </div>
   </div>
 
-  <!-- SUCCESS -->
+  <!-- SUCCÈS -->
   <div class="success" id="success">
     <div class="success-icon">✓</div>
     <h2>Rapport envoyé avec succès !</h2>
     <p id="success-msg">Vos données ont été transmises au coordinateur du département de Bambey.</p>
-    <p style="font-size:13px;color:#888">Une copie a également été envoyée à votre adresse email si vous en avez renseigné une.</p>
+    <p style="font-size:13px;color:#888">Une copie sera disponible dans le tableau de bord Formspree du coordinateur.</p>
     <button class="btn-new" onclick="resetAll()">Soumettre un autre rapport</button>
   </div>
 
   <footer>
+    MINISTÈRE DE L'AGRICULTURE, DE LA SOUVERAINETÉ ALIMENTAIRE ET DE L'ÉLEVAGE (MASAE)<br/>
     ANCAR — Agence Nationale de Conseil Agricole et Rural · Département de Bambey · Campagne 2025/2026
   </footer>
 </div>
 
 <script>
-const WEB3FORMS_KEY = '95416ccd-3b6f-459a-af27-8fc95e966e94';
-let vCount = 0;
+const FORMSPREE_URL = 'https://formspree.io/f/mgonnend';
+let diffCount = 0;
 
 function goTo(n) {
   document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
@@ -301,7 +343,7 @@ function nextStep(n) {
       alert('Veuillez sélectionner votre commune d\'affectation.'); return;
     }
   }
-  if (n === 2) {
+  if (n === 4) {
     if (!document.getElementById('tel_paiement').value.trim() || !document.getElementById('operateur').value) {
       alert('Veuillez renseigner le téléphone de paiement et l\'opérateur.'); return;
     }
@@ -309,34 +351,29 @@ function nextStep(n) {
   goTo(n + 1);
 }
 
-function addVillage() {
-  vCount++;
-  const id = 'vrow' + vCount;
+function addDiff() {
+  diffCount++;
+  const id = 'diff' + diffCount;
   const div = document.createElement('div');
-  div.className = 'village-row';
+  div.className = 'diff-row';
   div.id = id;
   div.innerHTML = `
-    <input name="village_nom_${vCount}" placeholder="Nom du village"/>
-    <select name="village_activite_${vCount}">
-      <option value="">-- Activité --</option>
-      <option>Appui-conseil</option>
-      <option>Sensibilisation</option>
-      <option>Suivi des cultures</option>
-      <option>Compostage / matières organiques</option>
-      <option>Commercialisation</option>
-      <option>Recensement OP/GIE</option>
-      <option>Appui administratif</option>
-      <option>Autre</option>
-    </select>
-    <input name="village_periode_${vCount}" placeholder="Janv., Fév..."/>
-    <input name="village_producteurs_${vCount}" type="number" min="0" placeholder="0"/>
-    <input name="village_seances_${vCount}" type="number" min="0" placeholder="0"/>
-    <button type="button" class="del-btn" onclick="document.getElementById('${id}').remove()" title="Supprimer">×</button>
+    <input placeholder="Ex : Manque de moyens de transport pour couvrir tous les villages..." />
+    <button class="del-btn" onclick="document.getElementById('${id}').remove()" title="Supprimer">×</button>
   `;
-  document.getElementById('villages-list').appendChild(div);
+  document.getElementById('diff-list').appendChild(div);
+  div.querySelector('input').focus();
 }
 
-// Calcul montant
+function getDiffs() {
+  return Array.from(document.querySelectorAll('.diff-row input'))
+    .map((inp, i) => inp.value.trim())
+    .filter(v => v)
+    .map((v, i) => `${i + 1}. ${v}`)
+    .join('\n') || 'Néant';
+}
+
+// Calcul montant automatique
 ['p50', 'p100'].forEach(id => {
   document.getElementById(id).addEventListener('input', updateMontant);
 });
@@ -344,107 +381,111 @@ function updateMontant() {
   const v50 = parseInt(document.getElementById('p50').value) || 0;
   const v100 = parseInt(document.getElementById('p100').value) || 0;
   const total = v50 * 50000 + v100 * 100000;
-  const d = document.getElementById('montant-display');
-  if (total > 0) {
-    d.style.display = 'block';
-    document.getElementById('montant-val').textContent = total.toLocaleString('fr-FR');
-  } else {
-    d.style.display = 'none';
-  }
-}
-
-function collectVillages() {
-  const rows = document.querySelectorAll('.village-row');
-  return Array.from(rows).map((r, i) => {
-    const inputs = r.querySelectorAll('input, select');
-    return `Village ${i+1}: ${inputs[0].value} | Activité: ${inputs[1].value} | Période: ${inputs[2].value} | Producteurs: ${inputs[3].value} | Séances: ${inputs[4].value}`;
-  }).filter(v => v.split(':')[1].trim()).join('\n');
+  document.getElementById('montant-val').textContent = total.toLocaleString('fr-FR');
 }
 
 async function submitForm() {
   const prenom = document.getElementById('prenom').value.trim();
-  const nom = document.getElementById('nom').value.trim();
+  const nom    = document.getElementById('nom').value.trim();
   if (!prenom || !nom) { alert('Prénom et nom obligatoires.'); goTo(1); return; }
+  if (!document.getElementById('cni').value.trim()) { alert('Veuillez renseigner votre N° CNI.'); return; }
+  if (!document.getElementById('operateur').value)  { alert('Veuillez sélectionner l\'opérateur de paiement.'); return; }
 
-  const btn = document.getElementById('btn-submit');
+  const btn     = document.getElementById('btn-submit');
   const sending = document.getElementById('sending');
-  const errBanner = document.getElementById('error-banner');
-
-  btn.disabled = true;
+  const errBan  = document.getElementById('error-banner');
+  btn.disabled  = true;
   sending.style.display = 'block';
-  errBanner.style.display = 'none';
+  errBan.style.display  = 'none';
 
-  const v50 = parseInt(document.getElementById('p50').value) || 0;
+  const v50  = parseInt(document.getElementById('p50').value)  || 0;
   const v100 = parseInt(document.getElementById('p100').value) || 0;
-  const montantTotal = (v50 * 50000 + v100 * 100000).toLocaleString('fr-FR') + ' FCFA';
 
   const payload = {
-    _subject: `Rapport JVA — ${prenom} ${nom} — ${document.getElementById('commune').value} — Janvier 2026`,
+    _subject: `Bilan JVA — ${prenom} ${nom} — ${document.getElementById('commune').value} — Campagne 2025/2026`,
     _replyto: document.getElementById('email').value || 'noreply@ancar.sn',
+
+    /* Identité */
     prenom,
     nom,
-    telephone: document.getElementById('tel').value,
-    email: document.getElementById('email').value,
-    cni: document.getElementById('cni').value,
+    telephone_personnel:   document.getElementById('tel').value,
+    email:                 document.getElementById('email').value,
+    region:                'DIOURBEL',
+    departement:           'BAMBEY',
+    commune:               document.getElementById('commune').value,
     date_prise_de_service: document.getElementById('date_service').value,
-    commune: document.getElementById('commune').value,
-    superviseur: document.getElementById('superviseur').value,
-    telephone_paiement: document.getElementById('tel_paiement').value,
-    operateur: document.getElementById('operateur').value,
-    paiements_50000_fcfa: document.getElementById('p50').value,
-    paiements_100000_fcfa: document.getElementById('p100').value,
-    montant_total_percu: montantTotal,
-    villages_visites: collectVillages() || 'Non renseigné',
-    nb_villages_couverts: document.getElementById('nb_villages').value || '0',
-    nb_producteurs_accompagnes: document.getElementById('nb_producteurs').value || '0',
-    nb_seances_sensibilisation: document.getElementById('nb_seances').value || '0',
-    nb_gie_cooperatives: document.getElementById('nb_gie').value || '0',
-    contraintes: document.getElementById('contraintes').value || 'Néant',
-    recommandations: document.getElementById('recommandations').value || 'Néant',
-    observations: document.getElementById('observations').value || 'Néant',
+    superviseur:           document.getElementById('superviseur').value,
+
+    /* Tableau 1 — Activités */
+    'T1 - Suivi des cultures':               document.getElementById('act_suivi').value           || 'Néant',
+    'T1 - Appui récolte':                    document.getElementById('act_recolte').value          || 'Néant',
+    'T1 - Commercialisation':                document.getElementById('act_commercialisation').value|| 'Néant',
+    'T1 - Production animale':               document.getElementById('act_animale').value          || 'Néant',
+    'T1 - Production halieutique':           document.getElementById('act_halieutique').value      || 'Néant',
+    'T1 - Communication OP / réseaux':       document.getElementById('act_communication').value    || 'Néant',
+    'T1 - Renforcement capacités':           document.getElementById('act_renforcement').value     || 'Néant',
+    'T1 - Contraintes mise en oeuvre':       document.getElementById('act_contraintes').value      || 'Néant',
+
+    /* Difficultés */
+    difficultes_rencontrees: getDiffs(),
+
+    /* Tableau 2 — Paiement */
+    cni:                       document.getElementById('cni').value,
+    telephone_paiement:        document.getElementById('tel_paiement').value,
+    operateur:                 document.getElementById('operateur').value,
+    nb_paiements_50000:        String(v50),
+    nb_paiements_100000:       String(v100),
+    montant_total_percu:       (v50 * 50000 + v100 * 100000).toLocaleString('fr-FR') + ' FCFA',
   };
 
   try {
-    const res = await fetch('https://api.web3forms.com/submit', {
+    const res = await fetch(FORMSPREE_URL, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-      body: JSON.stringify({ access_key: WEB3FORMS_KEY, ...payload })
-    }); 
+      body: JSON.stringify(payload)
+    });
     sending.style.display = 'none';
     if (res.ok) {
       document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
       document.getElementById('success').style.display = 'block';
       document.getElementById('success-msg').textContent =
-        `Merci ${prenom} ${nom}. Votre rapport pour la commune de ${payload.commune} a bien été transmis au coordinateur du département de Bambey.`;
+        `Merci ${prenom} ${nom}. Votre bilan pour la commune de ${payload.commune} a bien été transmis au coordinateur.`;
       document.getElementById('progress').style.width = '100%';
       window.scrollTo({ top: 0, behavior: 'smooth' });
     } else {
       btn.disabled = false;
-      errBanner.style.display = 'block';
+      errBan.style.display = 'block';
     }
   } catch (e) {
     sending.style.display = 'none';
     btn.disabled = false;
-    errBanner.style.display = 'block';
+    errBan.style.display = 'block';
   }
 }
 
 function resetAll() {
   document.getElementById('success').style.display = 'none';
-  ['prenom','nom','tel','email','cni','superviseur','tel_paiement','contraintes','recommandations','observations'].forEach(id => document.getElementById(id).value = '');
-  ['p50','p100','nb_villages','nb_producteurs','nb_seances','nb_gie'].forEach(id => document.getElementById(id).value = '0');
-  document.getElementById('commune').value = '';
+  ['prenom','nom','tel','email','superviseur','tel_paiement','cni'].forEach(id => document.getElementById(id).value = '');
+  ['act_suivi','act_recolte','act_commercialisation','act_animale','act_halieutique','act_communication','act_renforcement','act_contraintes'].forEach(id => document.getElementById(id).value = '');
+  ['p50','p100'].forEach(id => document.getElementById(id).value = '0');
+  document.getElementById('commune').value   = '';
   document.getElementById('operateur').value = '';
   document.getElementById('date_service').value = '2025-08-11';
-  document.getElementById('villages-list').innerHTML = '';
-  document.getElementById('montant-display').style.display = 'none';
+  document.getElementById('diff-list').innerHTML = '';
+  document.getElementById('montant-val').textContent = '0';
   document.getElementById('error-banner').style.display = 'none';
   document.getElementById('btn-submit').disabled = false;
-  vCount = 0;
+  diffCount = 0;
   goTo(1);
 }
 
-addVillage();
+// Pré-remplir 3 lignes de difficultés
+['Lenteurs dans la mise en place des intrants agricoles',
+ 'Manque de moyens de transport pour couvrir tous les villages',
+ 'Insuffisance des quotas de semences par agriculteur'].forEach(txt => {
+  addDiff();
+  document.querySelector('#diff' + diffCount + ' input').value = txt;
+});
 </script>
 </body>
 </html>
