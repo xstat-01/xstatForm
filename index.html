@@ -277,7 +277,7 @@
       <button class="btn-next" onclick="nextStep(3)">Suivant →</button>
     </div>
   </div>
-
+ 
   <!-- ══════════════════════════════════════════
        ÉTAPE 4 — TABLEAU 2 : PAIEMENTS
   ══════════════════════════════════════════ -->
@@ -288,36 +288,41 @@
     </div>
     <div class="grid2">
       <div class="field">
-        <label>N° CNI <span class="req">*</span></label>
-        <input id="cni" placeholder="Numéro carte nationale d'identité"/>
-      </div>
-      <div class="field">
-        <label>Téléphone utilisé pour le paiement <span class="req">*</span></label>
+        <label>Téléphone de paiement <span class="req">*</span></label>
         <input id="tel_paiement" type="tel" placeholder="7X XXX XX XX"/>
-        <span class="hint">Numéro Wave ou Orange Money enregistré</span>
       </div>
       <div class="field">
-        <label>Opérateur <span class="req">*</span></label>
+        <label>Opérateur de paiement <span class="req">*</span></label>
         <select id="operateur">
           <option value="">-- Sélectionner --</option>
           <option>Wave</option>
-          <option>Orange Money (OM)</option>
-          <option>Wave et Orange Money</option>
+          <option>Orange Money</option>
+          <option>Autre</option>
         </select>
       </div>
-      <div class="field">
-        <label>Nombre de paiements de 50 000 FCFA reçus</label>
-        <input id="p50" type="number" min="0" value="0"/>
-      </div>
-      <div class="field">
-        <label>Nombre de paiements de 100 000 FCFA reçus</label>
-        <input id="p100" type="number" min="0" value="0"/>
-      </div>
-      <div class="field" style="align-self:flex-end">
-        <div class="montant-box" id="montant-display" style="display:block;margin:0">
-          Montant total : <strong id="montant-val">0</strong> FCFA
-        </div>
-      </div>
+    </div>
+    <!-- Tableau des mois -->
+    <div class="section-label">Suivi mensuel des paiements (Août 2025 — Mars 2026)</div>
+    <div style="overflow-x:auto">
+      <table class="pay-table">
+        <thead>
+          <tr>
+            <th style="width:140px">Mois</th>
+            <th>Salaire reçu<br/><span style="font-weight:400;font-size:11px">(50 000 FCFA)</span></th>
+            <th>Indemnité transport<br/><span style="font-weight:400;font-size:11px">(25 000 FCFA)</span></th>
+            <th>Observations</th>
+          </tr>
+        </thead>
+        <tbody id="pay-body"></tbody>
+        <tfoot>
+          <tr style="background:#f8fdf5;font-weight:600">
+            <td style="padding:10px 12px;font-size:13px;color:#375623">TOTAL</td>
+            <td style="padding:10px 12px;text-align:center;font-size:13px;color:#375623" id="total-salaire">0 / 8</td>
+            <td style="padding:10px 12px;text-align:center;font-size:13px;color:#375623" id="total-transport">0 / 8</td>
+            <td style="padding:10px 12px;font-size:13px;color:#375623" id="total-montant">Montant total : 0 FCFA</td>
+          </tr>
+        </tfoot>
+      </table>
     </div>
 
     <div class="nav-btns">
@@ -333,6 +338,19 @@
     </div>
   </div>
 
+    <div class="nav-btns">
+      <button class="btn-prev" onclick="goTo(3)">← Précédent</button>
+      <button class="btn-submit" id="btn-submit" onclick="submitForm()">Envoyer mon rapport ✓</button>
+    </div>
+    <div class="sending-overlay" id="sending">
+      <div class="spinner"></div>
+      <p>Envoi en cours, veuillez patienter...</p>
+    </div>
+    <div class="error-banner" id="error-banner">
+      Une erreur est survenue. Vérifiez votre connexion internet et réessayez.
+    </div>
+  </div>
+ 
   <!-- SUCCÈS -->
   <div class="success" id="success">
     <div class="success-icon">✓</div>
