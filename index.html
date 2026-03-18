@@ -377,10 +377,8 @@ function addDiff() {
   const div = document.createElement('div');
   div.className = 'diff-row';
   div.id = id;
-  div.innerHTML = `
-    <input placeholder="Ex : Manque de moyens de transport pour couvrir tous les villages..." />
-    <button type="button" class="del-btn" onclick="document.getElementById('${id}').remove()" title="Supprimer">×</button>
-  `;
+  div.innerHTML = '<input placeholder="Ex : Manque de moyens de transport pour couvrir tous les villages..." />' +
+    '<button type="button" class="del-btn" onclick="document.getElementById(\'' + id + '\').remove()" title="Supprimer">×</button>';
   document.getElementById('diff-list').appendChild(div);
   div.querySelector('input').focus();
 }
