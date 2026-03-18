@@ -101,11 +101,17 @@
   .pay-table input[type=checkbox]{width:18px;height:18px;accent-color:#375623;cursor:pointer}
   .pay-table input[type=text]{width:100%;border:none;background:transparent;font-size:12px;font-family:inherit;color:#555;padding:2px 4px;outline:none}
   .pay-table input[type=text]:focus{background:#fff;border-bottom:1px solid #375623}
-  .check-label{display:flex;align-items:center;justify-content:center;gap:6px;font-size:12px}
-  .check-label.paid{color:#375623;font-weight:600}
-  .check-label.unpaid{color:#aaa}
-  .badge-paid{display:inline-block;background:#e8f5e1;color:#375623;font-size:10px;padding:1px 7px;border-radius:10px;font-weight:600}
-  .badge-unpaid{display:inline-block;background:#f5f5f0;color:#aaa;font-size:10px;padding:1px 7px;border-radius:10px}
+  .check-label{display:flex;align-items:center;justify-content:center;gap:8px;font-size:13px;cursor:pointer;user-select:none}
+  .badge-paid{display:inline-flex;align-items:center;gap:4px;background:#e8f5e1;color:#27500A;font-size:11px;padding:3px 10px;border-radius:20px;font-weight:600}
+  .badge-unpaid{display:inline-flex;align-items:center;gap:4px;background:#fcebeb;color:#A32D2D;font-size:11px;padding:3px 10px;border-radius:20px;font-weight:500}
+  .pay-table input[type=checkbox]{width:18px;height:18px;accent-color:#375623;cursor:pointer;flex-shrink:0}
+  .row-paid td{background:#f0faf0 !important}
+  .row-partial td{background:#fffbea !important}
+  .montant-cell{font-size:12px;font-weight:600;color:#375623;text-align:right;white-space:nowrap}
+  .recap-box{background:var(--color-bg,#f8fdf5);border:1px solid #c3deb5;border-radius:10px;padding:14px 18px;margin-top:16px;display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px}
+  .recap-item .r-lbl{font-size:11px;color:#666;margin-bottom:4px}
+  .recap-item .r-val{font-size:20px;font-weight:600;color:#375623}
+  .recap-item .r-sub{font-size:11px;color:#888;margin-top:2px}
 
   footer{text-align:center;font-size:12px;color:#aaa;margin-top:32px;line-height:1.8}
 </style>
@@ -156,10 +162,6 @@
         <input id="email" type="email" placeholder="exemple@gmail.com"/>
       </div>
       <div class="field">
-        <label>N° CNI <span class="req">*</span></label>
-        <input id="cni" name="cni" placeholder="Numéro carte nationale d'identité"/>
-      </div>
-      <div class="field">
         <label>Région</label>
         <input id="region" value="DIOURBEL" readonly style="background:#f5f5f0;color:#666"/>
       </div>
@@ -169,19 +171,19 @@
       </div>
       <div class="field">
         <label>Commune d'affectation <span class="req">*</span></label>
-        <select id="commune">
+        <select id="commune" onchange="autoSuperviseur()">
           <option value="">-- Sélectionner --</option>
+          <option>Baba Garage</option>
+          <option>Dinguiraye</option>
           <option>GAWANE</option>
           <option>Keur Samba Kane</option>
-          <option>Ngogom</option>
           <option>Lambaye</option>
           <option>Ndangalma</option>
-          <option>Thiakhar</option>
+          <option>Ndoudol</option>
+          <option>Ngogom</option>
           <option>Ngoye</option>
           <option>Refane</option>
-          <option>Dinguiraye</option>
-          <option>Baba Garage</option>
-          <option>Ndoudol</option>
+          <option>Thiakhar</option>
           <option>Autre</option>
         </select>
       </div>
@@ -189,17 +191,13 @@
         <label>Date de prise de service</label>
         <input id="date_service" type="date" value="2025-08-11"/>
       </div>
-      <div class="field">
-        <label>Superviseur <span class="req">*</span></label>
-        <select id="superviseur">
-          <option value="">-- Sélectionner --</option>
-          <option>Abdou Sackour Diouf </option>
-          <option>Amadou Sall</option>
-          <option>Amadou Sene</option>
-          <option>Ablaye Diene</option>
-          <option>Issa KEBE</option>
-          <option>Autre</option>
-        </select>
+      <div class="field full">
+        <label>Superviseur</label>
+        <input id="superviseur" placeholder="Sélectionnez d'abord votre commune..." readonly
+          style="background:#f5f5f0;color:#444;cursor:default"/>
+        <span class="hint" id="superviseur-hint" style="color:#375623;display:none">
+          Superviseur assigné automatiquement selon votre commune
+        </span>
       </div>
     </div>
     <div class="nav-btns">
@@ -211,8 +209,8 @@
        ÉTAPE 2 — TABLEAU 1 : ACTIVITÉS MENÉES
   ══════════════════════════════════════════ -->
   <div class="section" id="step2">
-    <div class="section-title">SYNTHESE DES ACTIVITES MENEES PAR LES JVA</div>
-    <p style="font-size:13px;color:#666;margin-bottom:14px">Pour chaque thématique, décrivez les activités réalisées durant la campagne 2025-2026.</p>
+    <div class="section-title">Tableau 1 — Synthèse des activités menées par les JVA</div>
+    <p style="font-size:13px;color:#666;margin-bottom:14px">Pour chaque thématique, décrivez les activités réalisées durant la campagne.</p>
 
     <table class="activite-table">
       <thead>
@@ -277,55 +275,83 @@
       <button class="btn-next" onclick="nextStep(3)">Suivant →</button>
     </div>
   </div>
- 
+
   <!-- ══════════════════════════════════════════
        ÉTAPE 4 — TABLEAU 2 : PAIEMENTS
   ══════════════════════════════════════════ -->
   <div class="section" id="step4">
-    <div class="section-title">INFORMATIONS DE PAIEMENT DES SALIRES ET INDEMNITES DE TRANSPORT</div>
+    <div class="section-title">Tableau 2 — Recensement des paiements des JVA</div>
     <div class="paiement-info">
-      Renseignez le numéro utilisé pour recevoir vos paiements, les opérateurs mobiles utilisés Wave ou Orange Money ainsi que le nombre de versements perçus.
+      Pour chaque mois, cliquez sur <strong>Payé</strong> ou <strong>Non payé</strong> pour le salaire et l'indemnité de transport. Le montant total se calcule automatiquement.
     </div>
-    <div class="grid2">
+
+    <!-- Coordonnées de paiement -->
+    <div class="section-label">Coordonnées de paiement</div>
+    <div class="grid2" style="margin-bottom:24px">
       <div class="field">
-        <label>Téléphone de paiement <span class="req">*</span></label>
-        <input id="tel_paiement" type="tel" placeholder="7X XXX XX XX"/>
+        <label>N° CNI <span class="req">*</span></label>
+        <input id="cni" placeholder="Numéro carte nationale d'identité"/>
       </div>
       <div class="field">
-        <label>Opérateur de paiement <span class="req">*</span></label>
+        <label>Téléphone utilisé pour le paiement <span class="req">*</span></label>
+        <input id="tel_paiement" type="tel" placeholder="7X XXX XX XX"/>
+        <span class="hint">Numéro Wave ou Orange Money enregistré</span>
+      </div>
+      <div class="field">
+        <label>Opérateur <span class="req">*</span></label>
         <select id="operateur">
           <option value="">-- Sélectionner --</option>
           <option>Wave</option>
-          <option>Orange Money</option>
-          <option>Autre</option>
+          <option>Orange Money (OM)</option>
+          <option>Wave et Orange Money</option>
         </select>
       </div>
     </div>
-    <!-- Tableau des mois -->
-    <div class="section-label">Suivi mensuel des paiements (Août 2025 — Mars 2026)</div>
-    <div style="overflow-x:auto">
-      <table class="pay-table">
+
+    <!-- Tableau mensuel -->
+    <div class="section-label">Suivi mensuel des paiements — Août 2025 à Mars 2026</div>
+    <div style="overflow-x:auto;margin-top:8px">
+      <table style="width:100%;border-collapse:collapse;font-size:13px;min-width:520px">
         <thead>
           <tr>
-            <th style="width:140px">Mois</th>
-            <th>Salaire reçu<br/><span style="font-weight:400;font-size:11px">(50 000 FCFA)</span></th>
-            <th>Indemnité transport<br/><span style="font-weight:400;font-size:11px">(25 000 FCFA)</span></th>
-            <th>Observations</th>
+            <th style="background:#375623;color:#fff;padding:11px 14px;text-align:left;font-size:12px;font-weight:600;width:130px;border-radius:0">Mois</th>
+            <th style="background:#375623;color:#fff;padding:11px 14px;text-align:center;font-size:12px;font-weight:600">Salaire<br><span style="font-weight:400;font-size:10px">50 000 FCFA</span></th>
+            <th style="background:#375623;color:#fff;padding:11px 14px;text-align:center;font-size:12px;font-weight:600">Indemnité transport<br><span style="font-weight:400;font-size:10px">25 000 FCFA</span></th>
+            <th style="background:#375623;color:#fff;padding:11px 14px;text-align:right;font-size:12px;font-weight:600">Montant</th>
           </tr>
         </thead>
         <tbody id="pay-body"></tbody>
         <tfoot>
-          <tr style="background:#f8fdf5;font-weight:600">
-            <td style="padding:10px 12px;font-size:13px;color:#375623">TOTAL</td>
-            <td style="padding:10px 12px;text-align:center;font-size:13px;color:#375623" id="total-salaire">0 / 8</td>
-            <td style="padding:10px 12px;text-align:center;font-size:13px;color:#375623" id="total-transport">0 / 8</td>
-            <td style="padding:10px 12px;font-size:13px;color:#375623" id="total-montant">Montant total : 0 FCFA</td>
+          <tr id="tfoot-row" style="background:#e8f5e1;border-top:2px solid #375623">
+            <td style="padding:11px 14px;font-size:13px;font-weight:700;color:#375623">TOTAL</td>
+            <td style="padding:11px 14px;text-align:center;font-size:13px;font-weight:700;color:#375623" id="total-salaire">0 / 8</td>
+            <td style="padding:11px 14px;text-align:center;font-size:13px;font-weight:700;color:#375623" id="total-transport">0 / 8</td>
+            <td style="padding:11px 14px;text-align:right;font-size:13px;font-weight:700;color:#375623" id="total-montant">0 FCFA</td>
           </tr>
         </tfoot>
       </table>
     </div>
 
-    <div class="nav-btns">
+    <!-- Récapitulatif visuel -->
+    <div style="margin-top:16px;background:#f8fdf5;border:1px solid #c3deb5;border-radius:10px;padding:16px 20px;display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px">
+      <div>
+        <div style="font-size:11px;color:#666;margin-bottom:4px">Salaires reçus</div>
+        <div id="recap-sal-val" style="font-size:24px;font-weight:700;color:#375623">0 / 8</div>
+        <div id="recap-sal-sub" style="font-size:11px;color:#888;margin-top:2px">0 FCFA</div>
+      </div>
+      <div>
+        <div style="font-size:11px;color:#666;margin-bottom:4px">Transports reçus</div>
+        <div id="recap-tra-val" style="font-size:24px;font-weight:700;color:#375623">0 / 8</div>
+        <div id="recap-tra-sub" style="font-size:11px;color:#888;margin-top:2px">0 FCFA</div>
+      </div>
+      <div>
+        <div style="font-size:11px;color:#666;margin-bottom:4px">Montant total perçu</div>
+        <div id="recap-mnt-val" style="font-size:24px;font-weight:700;color:#375623">0</div>
+        <div style="font-size:11px;color:#888;margin-top:2px">FCFA</div>
+      </div>
+    </div>
+
+    <div class="nav-btns" style="margin-top:20px">
       <button class="btn-prev" onclick="goTo(3)">← Précédent</button>
       <button class="btn-submit" id="btn-submit" onclick="submitForm()">Envoyer mon rapport ✓</button>
     </div>
@@ -338,19 +364,6 @@
     </div>
   </div>
 
-    <div class="nav-btns">
-      <button class="btn-prev" onclick="goTo(3)">← Précédent</button>
-      <button class="btn-submit" id="btn-submit" onclick="submitForm()">Envoyer mon rapport ✓</button>
-    </div>
-    <div class="sending-overlay" id="sending">
-      <div class="spinner"></div>
-      <p>Envoi en cours, veuillez patienter...</p>
-    </div>
-    <div class="error-banner" id="error-banner">
-      Une erreur est survenue. Vérifiez votre connexion internet et réessayez.
-    </div>
-  </div>
- 
   <!-- SUCCÈS -->
   <div class="success" id="success">
     <div class="success-icon">✓</div>
@@ -369,6 +382,159 @@
 <script>
 const FORMSPREE_URL = 'https://formspree.io/f/xreyodkp';
 let diffCount = 0;
+
+const MOIS = [
+  {id:'aout2025',   label:'Août 2025'},
+  {id:'sept2025',   label:'Septembre 2025'},
+  {id:'oct2025',    label:'Octobre 2025'},
+  {id:'nov2025',    label:'Novembre 2025'},
+  {id:'dec2025',    label:'Décembre 2025'},
+  {id:'janv2026',   label:'Janvier 2026'},
+  {id:'fev2026',    label:'Février 2026'},
+  {id:'mars2026',   label:'Mars 2026'},
+];
+
+function buildPayTable() {
+  const tbody = document.getElementById('pay-body');
+  tbody.innerHTML = '';
+  MOIS.forEach((m, idx) => {
+    const tr = document.createElement('tr');
+    tr.id = 'row-' + m.id;
+    tr.style.background = idx % 2 === 0 ? '#fff' : '#f9fdf6';
+    tr.innerHTML = `
+      <td style="padding:10px 14px;font-size:13px;font-weight:600;color:#333;border:1px solid #e0e0d8;white-space:nowrap">${m.label}</td>
+      <td style="padding:8px 10px;border:1px solid #e0e0d8;text-align:center">
+        <div style="display:flex;align-items:center;justify-content:center;gap:6px">
+          <button type="button" id="btn-sal-oui-${m.id}"
+            onclick="togglePay('sal','${m.id}',true)"
+            style="padding:5px 14px;font-size:12px;font-weight:600;border-radius:20px;cursor:pointer;border:2px solid #c3deb5;background:#fff;color:#888;transition:.15s">
+            ✓ Payé
+          </button>
+          <button type="button" id="btn-sal-non-${m.id}"
+            onclick="togglePay('sal','${m.id}',false)"
+            style="padding:5px 14px;font-size:12px;font-weight:600;border-radius:20px;cursor:pointer;border:2px solid #f5c4c4;background:#fcebeb;color:#A32D2D;transition:.15s">
+            ✗ Non payé
+          </button>
+        </div>
+        <input type="hidden" id="sal-${m.id}" value="non"/>
+      </td>
+      <td style="padding:8px 10px;border:1px solid #e0e0d8;text-align:center">
+        <div style="display:flex;align-items:center;justify-content:center;gap:6px">
+          <button type="button" id="btn-tra-oui-${m.id}"
+            onclick="togglePay('tra','${m.id}',true)"
+            style="padding:5px 14px;font-size:12px;font-weight:600;border-radius:20px;cursor:pointer;border:2px solid #c3deb5;background:#fff;color:#888;transition:.15s">
+            ✓ Payée
+          </button>
+          <button type="button" id="btn-tra-non-${m.id}"
+            onclick="togglePay('tra','${m.id}',false)"
+            style="padding:5px 14px;font-size:12px;font-weight:600;border-radius:20px;cursor:pointer;border:2px solid #f5c4c4;background:#fcebeb;color:#A32D2D;transition:.15s">
+            ✗ Non payée
+          </button>
+        </div>
+        <input type="hidden" id="tra-${m.id}" value="non"/>
+      </td>
+      <td style="padding:10px 14px;border:1px solid #e0e0d8;text-align:right;font-size:13px;font-weight:700;color:#375623" id="mnt-${m.id}">—</td>
+    `;
+    tbody.appendChild(tr);
+  });
+  updateTotals();
+}
+
+function togglePay(type, moisId, isPaid) {
+  const hidden = document.getElementById(type + '-' + moisId);
+  hidden.value = isPaid ? 'oui' : 'non';
+  const btnOui = document.getElementById('btn-' + type + '-oui-' + moisId);
+  const btnNon = document.getElementById('btn-' + type + '-non-' + moisId);
+  if (isPaid) {
+    btnOui.style.background = '#375623';
+    btnOui.style.color = '#fff';
+    btnOui.style.borderColor = '#375623';
+    btnNon.style.background = '#fff';
+    btnNon.style.color = '#aaa';
+    btnNon.style.borderColor = '#ddd';
+  } else {
+    btnNon.style.background = '#A32D2D';
+    btnNon.style.color = '#fff';
+    btnNon.style.borderColor = '#A32D2D';
+    btnOui.style.background = '#fff';
+    btnOui.style.color = '#aaa';
+    btnOui.style.borderColor = '#ddd';
+  }
+  updateTotals();
+}
+
+function updateTotals() {
+  let cntSal = 0, cntTra = 0;
+  MOIS.forEach(m => {
+    const sal = document.getElementById('sal-'+m.id).value === 'oui';
+    const tra = document.getElementById('tra-'+m.id).value === 'oui';
+    const mnt = document.getElementById('mnt-'+m.id);
+    if (sal) cntSal++;
+    if (tra) cntTra++;
+    const ligneTotal = (sal ? 50000 : 0) + (tra ? 25000 : 0);
+    mnt.textContent = ligneTotal > 0 ? ligneTotal.toLocaleString('fr-FR') + ' FCFA' : '—';
+  const total = cntSal * 50000 + cntTra * 25000;
+  document.getElementById('total-salaire').textContent   = cntSal + ' / ' + MOIS.length;
+  document.getElementById('total-transport').textContent = cntTra + ' / ' + MOIS.length;
+  document.getElementById('total-montant').textContent   = 'Montant total : ' + total.toLocaleString('fr-FR') + ' FCFA';
+  document.getElementById('recap-sal-val').textContent   = cntSal + ' / ' + MOIS.length;
+  document.getElementById('recap-tra-val').textContent   = cntTra + ' / ' + MOIS.length;
+  document.getElementById('recap-mnt-val').textContent   = total.toLocaleString('fr-FR');
+  document.getElementById('recap-sal-sub').textContent   = (cntSal * 50000).toLocaleString('fr-FR') + ' FCFA';
+  document.getElementById('recap-tra-sub').textContent   = (cntTra * 25000).toLocaleString('fr-FR') + ' FCFA';
+}
+
+function getPaymentData() {
+  const rows = [];
+  MOIS.forEach(m => {
+    const sal = document.getElementById('sal-'+m.id).value === 'oui' ? 'OUI' : 'NON';
+    const tra = document.getElementById('tra-'+m.id).value === 'oui' ? 'OUI' : 'NON';
+    rows.push(m.label + ' — Salaire: ' + sal + ' | Transport: ' + tra);
+  });
+  return rows.join('\n');
+}
+
+const COMMUNE_SUPERVISEUR = {
+  'Baba Garage':    'Abdou Sackour Diouf',
+  'Dinguiraye':     'Abdou Sackour Diouf',
+  'GAWANE':         'Abdou Sackour Diouf',
+  'Keur Samba Kane':'Amadou Sall',
+  'Lambaye':        'Amadou Sene',
+  'Ndangalma':      'Ablaye Diene',
+  'Ndoudol':        'Issa KEBE',
+  'Ngogom':         'Amadou Sene',
+  'Ngoye':          'Ablaye Diene',
+  'Refane':         'Issa KEBE',
+  'Thiakhar':       'Amadou Sall',
+};
+
+function autoSuperviseur() {
+  const commune = document.getElementById('commune').value;
+  const input   = document.getElementById('superviseur');
+  const hint    = document.getElementById('superviseur-hint');
+  if (commune && COMMUNE_SUPERVISEUR[commune]) {
+    input.value            = COMMUNE_SUPERVISEUR[commune];
+    input.style.color      = '#375623';
+    input.style.fontWeight = '600';
+    hint.style.display     = 'block';
+  } else {
+    input.value            = '';
+    input.style.color      = '#444';
+    input.style.fontWeight = '400';
+    hint.style.display     = 'none';
+    if (commune === 'Autre') {
+      input.removeAttribute('readonly');
+      input.placeholder      = 'Saisissez le nom du superviseur';
+      input.style.background = '#fff';
+      input.style.cursor     = 'text';
+    } else {
+      input.setAttribute('readonly', true);
+      input.placeholder      = "Selectionnez d'abord votre commune...";
+      input.style.background = '#f5f5f0';
+      input.style.cursor     = 'default';
+    }
+  }
+}
 
 function goTo(n) {
   document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
@@ -446,9 +612,6 @@ async function submitForm() {
   sending.style.display = 'block';
   errBan.style.display  = 'none';
 
-  const v50  = parseInt(document.getElementById('p50').value)  || 0;
-  const v100 = parseInt(document.getElementById('p100').value) || 0;
-
   const payload = {
     _subject: `Bilan JVA — ${prenom} ${nom} — ${document.getElementById('commune').value} — Campagne 2025/2026`,
     _replyto: document.getElementById('email').value || 'noreply@ancar.sn',
@@ -481,9 +644,10 @@ async function submitForm() {
     cni:                       document.getElementById('cni').value,
     telephone_paiement:        document.getElementById('tel_paiement').value,
     operateur:                 document.getElementById('operateur').value,
-    nb_paiements_50000:        String(v50),
-    nb_paiements_100000:       String(v100),
-    montant_total_percu:       (v50 * 50000 + v100 * 100000).toLocaleString('fr-FR') + ' FCFA',
+    detail_paiements_mensuels: getPaymentData(),
+    nb_salaires_recus:         document.getElementById('total-salaire').textContent,
+    nb_transports_recus:       document.getElementById('total-transport').textContent,
+    montant_total_percu:       document.getElementById('total-montant').textContent,
   };
 
   try {
@@ -517,6 +681,12 @@ function resetAll() {
   ['act_suivi','act_recolte','act_commercialisation','act_animale','act_halieutique','act_communication','act_renforcement','act_contraintes'].forEach(id => document.getElementById(id).value = '');
   ['p50','p100'].forEach(id => document.getElementById(id).value = '0');
   document.getElementById('commune').value   = '';
+  document.getElementById('superviseur').value = '';
+  document.getElementById('superviseur').style.color = '#444';
+  document.getElementById('superviseur').style.fontWeight = '400';
+  document.getElementById('superviseur').setAttribute('readonly', true);
+  document.getElementById('superviseur').style.background = '#f5f5f0';
+  document.getElementById('superviseur-hint').style.display = 'none';
   document.getElementById('operateur').value = '';
   document.getElementById('date_service').value = '2025-08-11';
   document.getElementById('diff-list').innerHTML = '';
@@ -527,12 +697,14 @@ function resetAll() {
   goTo(1);
 }
 
-// Pré-remplir 3 lignes de difficultés
-['Lenteurs dans la mise en place des intrants agricoles',
- 'Manque de moyens de transport pour couvrir tous les villages',
- 'Insuffisance des quotas de semences par agriculteur'].forEach(txt => {
-  addDiff();
-  document.querySelector('#diff' + diffCount + ' input').value = txt;
+document.addEventListener('DOMContentLoaded', function() {
+  buildPayTable();
+  ['Lenteurs dans la mise en place des intrants agricoles',
+   'Manque de moyens de transport pour couvrir tous les villages',
+   'Insuffisance des quotas de semences par agriculteur'].forEach(txt => {
+    addDiff();
+    document.querySelector('#diff' + diffCount + ' input').value = txt;
+  });
 });
 </script>
 </body>
